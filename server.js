@@ -10,7 +10,7 @@ const FORMATS = ['modern', 'standard', 'pioneer', 'legacy', 'pauper'];
 const SCRAPER_KEY = '3f10d92a56b446be501edab3d505fcae';
 
 function scraperUrl(url) {
-  return `https://api.scraperapi.com/?api_key=${SCRAPER_KEY}&url=${encodeURIComponent(url)}`;
+  return `https://api.scraperapi.com/?api_key=${SCRAPER_KEY}&render=true&url=${encodeURIComponent(url)}`;
 }
 
 async function scrapeMetagame(format) {
