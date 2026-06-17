@@ -283,6 +283,11 @@ main {
   font-weight: 500;
 }
 
+.play-draw-label {
+  font-weight: 800;
+  color: #7c3aed;
+}
+
 .vote-buttons {
   display: flex;
   gap: 0.85rem;

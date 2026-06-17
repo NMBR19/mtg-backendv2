@@ -20,6 +20,7 @@ const els = {
   handDeckName:      document.getElementById('hand-deck-name'),
   hand:              document.getElementById('hand'),
   voteSection:       document.getElementById('vote-section'),
+  playDrawLabel:     document.getElementById('play-draw-label'),
   keepBtn:           document.getElementById('keep-btn'),
   mullBtn:           document.getElementById('mull-btn'),
   resultsSection:    document.getElementById('results-section'),
@@ -157,8 +158,11 @@ async function loadFrom(apiUrl) {
     els.deckName.textContent     = data.deckName;
     els.opponentName.textContent = data.opponent.name;
 
+    // Play / Draw label
+    els.playDrawLabel.textContent = data.playDraw;
+
     // Deck name + decklist labels
-    els.handDeckName.textContent     = `${data.deckName} vs ${data.opponent.name}`;
+    els.handDeckName.textContent = `${data.deckName} vs ${data.opponent.name}`;
     els.playerDeckLabel.textContent  = data.deckName;
     els.opponentDeckLabel.textContent = data.opponent.name;
 

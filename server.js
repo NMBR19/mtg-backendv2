@@ -205,8 +205,8 @@ function drawHand(deck) {
   return shuffled.slice(0, 7);
 }
 
-function makeHandId(cards) {
-  return crypto.createHash('md5').update([...cards].sort().join('|')).digest('hex');
+function makeHandId(cards, playDraw) {
+  return crypto.createHash('md5').update([...cards].sort().join('|') + '|' + playDraw).digest('hex');
 }
 
 // Index one Scryfall card object into the map under every name variant.
@@ -369,7 +369,8 @@ async function getDaily() {
     const j = Math.floor(rng() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  const hand = shuffled.slice(0, 7);
+  const hand     = shuffled.slice(0, 7);
+  const playDraw = rng() < 0.5 ? 'play' : 'draw';
 
   const allNames = [
     ...deckData.companion, ...deckData.main, ...deckData.side,
@@ -380,13 +381,14 @@ async function getDaily() {
   const data = {
     deckName: deck.name,
     format,
+    playDraw,
     isDaily:   true,
     dailyDate: today,
     hand: hand.map(name => {
       const d = cardDataMap[name] || cardDataMap[name.toLowerCase()] || {};
       return { name, imageUrl: d.img || null, backImageUrl: d.backImg || null };
     }),
-    handId:   makeHandId(hand),
+    handId:   makeHandId(hand, playDraw),
     decklist: buildDecklist(deckData, cardDataMap),
     opponent: { name: opponent.name, decklist: buildDecklist(opponentData, cardDataMap) },
   };
@@ -430,7 +432,8 @@ app.get('/api/hand', async (req, res) => {
     if (deckData.main.length < 7) return res.status(503).json({ error: 'Could not parse decklist', deckUrl: deck.url });
 
     const hand = drawHand(deckData.main);
-    const id = makeHandId(hand);
+    const playDraw = Math.random() < 0.5 ? 'play' : 'draw';
+    const id = makeHandId(hand, playDraw);
 
     // One Scryfall call covers all cards in both decklists + hand
     const allNames = [
@@ -442,6 +445,7 @@ app.get('/api/hand', async (req, res) => {
     res.json({
       deckName: deck.name,
       format,
+      playDraw,
       hand: hand.map(name => {
         const d = cardDataMap[name] || cardDataMap[name.toLowerCase()] || {};
         return { name, imageUrl: d.img || null, backImageUrl: d.backImg || null };
