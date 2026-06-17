@@ -13,7 +13,9 @@ app.use(express.static('public'));
 
 const FORMATS = ['modern', 'standard', 'pioneer', 'legacy', 'pauper'];
 
-const db = new Database('votes.db');
+const fs = require('fs');
+fs.mkdirSync('./data', { recursive: true });
+const db = new Database('./data/votes.db');
 db.exec(`
   CREATE TABLE IF NOT EXISTS votes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
