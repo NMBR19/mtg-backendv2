@@ -1,7 +1,10 @@
 FROM node:20-bookworm-slim
 
-# Install Chromium system dependencies
+# Install build tools (for better-sqlite3) and Chromium system dependencies
 RUN apt-get update && apt-get install -y \
+    python3 \
+    make \
+    g++ \
     libglib2.0-0 \
     libnss3 \
     libnspr4 \
