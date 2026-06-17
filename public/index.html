@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keep or Mull</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1><span class="accent-purple">Keep</span> or <span class="accent-yellow">Mull</span></h1>
+    <p class="subtitle">Opening hands from the current meta</p>
+  </header>
+
+  <main>
+
+    <!-- ── Format selection (opening screen) ── -->
+    <div id="format-select" class="format-select">
+      <p class="format-prompt">Choose a format to begin</p>
+      <div class="format-group">
+        <div class="format-buttons">
+          <button class="btn btn-format" data-format="modern">Modern</button>
+          <button class="btn btn-format" data-format="standard">Standard</button>
+          <button class="btn btn-format" data-format="pioneer">Pioneer</button>
+          <button class="btn btn-format" data-format="legacy">Legacy</button>
+          <button class="btn btn-format" data-format="pauper">Pauper</button>
+        </div>
+        <button id="daily-btn" class="btn-daily">Play The Daily</button>
+      </div>
+    </div>
+
+    <!-- ── Play area (shown after format selected) ── -->
+    <div id="play-area" class="hidden">
+
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <button id="change-format-btn" class="btn-link">← Change format</button>
+          <button id="shuffle-decks-btn" class="btn-link hidden">↺ Shuffle decks</button>
+        </div>
+        <div id="deck-info" class="deck-info hidden">
+          <span id="daily-badge" class="badge badge-daily hidden">Daily</span>
+          <span id="format-badge" class="badge"></span>
+          <span id="deck-name" class="deck-name"></span>
+          <span class="vs-label">vs</span>
+          <span id="opponent-name" class="opponent-name"></span>
+        </div>
+      </div>
+
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Drawing your opening hand…</p>
+      </div>
+
+      <div id="error-state" class="error-state hidden">
+        <p id="error-msg"></p>
+        <button class="btn btn-new" onclick="retryHand()">Try Again</button>
+      </div>
+
+      <div id="hand-deck-name" class="hand-deck-name hidden"></div>
+      <div id="hand" class="hand hidden"></div>
+
+      <div id="vote-section" class="vote-section hidden">
+        <p class="vote-prompt">Would you keep this hand?</p>
+        <div class="vote-buttons">
+          <button id="keep-btn" class="btn btn-keep">Keep</button>
+          <button id="mull-btn" class="btn btn-mull">Mulligan</button>
+        </div>
+      </div>
+
+      <div id="results-section" class="results-section hidden">
+        <div class="poll">
+          <p class="poll-title">Community vote on this hand</p>
+          <div class="poll-row">
+            <span class="poll-label keep-label">Keep</span>
+            <div class="poll-bar-track">
+              <div id="keep-bar" class="poll-bar poll-bar-keep"></div>
+            </div>
+            <span id="keep-pct" class="poll-pct"></span>
+          </div>
+          <div class="poll-row">
+            <span class="poll-label mull-label">Mull</span>
+            <div class="poll-bar-track">
+              <div id="mull-bar" class="poll-bar poll-bar-mull"></div>
+            </div>
+            <span id="mull-pct" class="poll-pct"></span>
+          </div>
+          <p id="vote-count" class="vote-count"></p>
+        </div>
+        <button id="new-hand-btn" class="btn btn-new">Draw New Hand</button>
+      </div>
+
+      <!-- ── Decklist dropdowns (visible once hand loads) ── -->
+      <div id="decklists" class="decklists hidden">
+        <div class="decklist-panel">
+          <button class="decklist-toggle" id="player-toggle">
+            <span id="player-deck-label">Your Deck</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="decklist-content" id="player-decklist"></div>
+        </div>
+        <div class="decklist-panel">
+          <button class="decklist-toggle" id="opponent-toggle">
+            <span id="opponent-deck-label">Opponent's Deck</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="decklist-content" id="opponent-decklist"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Card image tooltip shown on decklist hover -->
+  <div id="card-tooltip" class="card-tooltip hidden">
+    <img id="card-tooltip-img" alt="" />
+    <img id="card-tooltip-back-img" alt="" class="hidden" />
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

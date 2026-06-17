@@ -1,0 +1,568 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f9f9fb;
+  color: #111827;
+  min-height: 100vh;
+}
+
+/* ── Header ── */
+header {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+  background: #fff;
+  border-bottom: 1px solid #ebebf0;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #111827;
+}
+
+/* Purple/yellow accents rendered as highlighted chips in the title */
+.accent-purple {
+  color: #fff;
+  background: #7c3aed;
+  border-radius: 5px;
+  padding: 0 6px;
+}
+
+.accent-yellow {
+  color: #1a1200;
+  background: #f5e000;
+  border-radius: 5px;
+  padding: 0 6px;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  color: #111827;
+  font-size: 0.92rem;
+}
+
+/* ── Main ── */
+main {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  text-align: center;
+}
+
+/* ── Format selection ── */
+.format-select {
+  padding: 3rem 0 2rem;
+}
+
+.format-prompt {
+  font-size: 1rem;
+  color: #111827;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+/* Wraps format buttons + daily button so the daily button matches their combined width */
+.format-group {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.format-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-format {
+  padding: 0.65rem 1.6rem;
+  border: 2px solid #7c3aed;
+  border-radius: 8px;
+  background: #fff;
+  color: #7c3aed;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-format:hover {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.btn-daily {
+  width: 100%;
+  padding: 2rem 1.6rem;
+  background: #f5e000;
+  color: #1a1200;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-daily:hover { background: #ffe84d; }
+
+.badge-daily {
+  background: #f5e000;
+  color: #1a1200;
+}
+
+/* ── Top bar ── */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.top-bar-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: #7c3aed;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-link:hover { text-decoration: underline; }
+
+/* ── Deck info ── */
+.deck-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.badge {
+  background: #7c3aed;
+  color: #fff;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.deck-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.vs-label {
+  font-size: 0.8rem;
+  color: #111827;
+  font-weight: 500;
+}
+
+.opponent-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ── Loading ── */
+.loading {
+  padding: 5rem 0;
+  color: #111827;
+  font-size: 0.95rem;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #7c3aed;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Error ── */
+.error-state {
+  padding: 3rem 0;
+  color: #ef4444;
+  font-size: 0.95rem;
+}
+
+.error-state .btn { margin-top: 1rem; }
+
+/* ── Deck name above hand ── */
+.hand-deck-name {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+/* ── Hand of cards ── */
+.hand {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-top: 2rem;       /* room for hover lift */
+  margin-bottom: 2.25rem;
+}
+
+/* Overlap consecutive cards like a real hand */
+.hand > * + * {
+  margin-left: -54px;
+}
+
+.card {
+  width: 224px;
+  border-radius: 11px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  display: block;
+  position: relative;
+  z-index: 1;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.card:hover {
+  transform: translateY(-22px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.28);
+  z-index: 10;
+}
+
+.card-placeholder {
+  width: 224px;
+  height: 314px;
+  background: #e9e9f0;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #111827;
+  text-align: center;
+  padding: 0.75rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+/* ── Vote ── */
+.vote-section { margin-bottom: 1rem; }
+
+.vote-prompt {
+  font-size: 1.05rem;
+  color: #111827;
+  margin-bottom: 1.1rem;
+  font-weight: 500;
+}
+
+.vote-buttons {
+  display: flex;
+  gap: 0.85rem;
+  justify-content: center;
+}
+
+/* ── Buttons ── */
+.btn {
+  padding: 0.7rem 2.25rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.1s;
+  letter-spacing: 0.01em;
+}
+
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: default; }
+
+.btn-keep {
+  background: #7c3aed;
+  color: #fff;
+}
+.btn-keep:hover:not(:disabled) { background: #6d28d9; }
+
+.btn-mull {
+  background: #f5e000;
+  color: #1a1200;
+}
+.btn-mull:hover:not(:disabled) { background: #ffe84d; }
+
+.btn-new {
+  background: #fff;
+  color: #7c3aed;
+  border-color: #7c3aed;
+}
+.btn-new:hover { background: #7c3aed; color: #fff; }
+
+/* ── Results / poll ── */
+.results-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.poll {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 1.5rem 2rem;
+  width: 100%;
+  max-width: 460px;
+  text-align: left;
+}
+
+.poll-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #111827;
+  font-weight: 600;
+  margin-bottom: 1.1rem;
+}
+
+.poll-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.7rem;
+}
+
+.poll-label {
+  width: 46px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.keep-label { color: #7c3aed; }
+
+/* Mull label uses same yellow chip style */
+.mull-label {
+  background: #f5e000;
+  color: #1a1200;
+  border-radius: 4px;
+  padding: 0 4px;
+  font-size: 0.82rem;
+}
+
+.poll-bar-track {
+  flex: 1;
+  height: 9px;
+  background: #f3f4f6;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.poll-bar {
+  height: 100%;
+  border-radius: 9999px;
+  width: 0%;
+  transition: width 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.poll-bar-keep { background: #7c3aed; }
+.poll-bar-mull { background: #f5e000; }
+
+.poll-pct {
+  width: 38px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.vote-count {
+  margin-top: 0.85rem;
+  font-size: 0.78rem;
+  color: #111827;
+}
+
+/* ── Decklist dropdowns ── */
+.decklists {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.decklist-panel {
+  flex: 1;
+  min-width: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.decklist-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: left;
+}
+
+.decklist-toggle:hover { background: #f9f9fb; }
+
+.arrow {
+  font-size: 0.75rem;
+  color: #111827;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.decklist-toggle.open .arrow {
+  transform: rotate(180deg);
+}
+
+.decklist-content {
+  display: none;
+  padding: 0.5rem 1.25rem 1rem;
+  border-top: 1px solid #f3f4f6;
+  column-count: 1;
+}
+
+.decklist-content.open { display: block; }
+
+.decklist-item {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.18rem 0;
+  font-size: 0.82rem;
+  break-inside: avoid;
+}
+
+.decklist-qty {
+  color: #111827;
+  font-weight: 700;
+  min-width: 1.2rem;
+  flex-shrink: 0;
+}
+
+.decklist-name {
+  color: #111827;
+}
+
+.decklist-name.hoverable {
+  cursor: pointer;
+}
+
+.decklist-name.hoverable:hover {
+  text-decoration: underline;
+  color: #7c3aed;
+}
+
+/* ── Decklist section headers ── */
+.decklist-section-header {
+  column-span: all;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.decklist-section-header:first-child {
+  margin-top: 0.25rem;
+}
+
+.decklist-section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #111827;
+}
+
+.decklist-section-count {
+  font-size: 0.72rem;
+  color: #111827;
+  font-weight: 500;
+}
+
+.decklist-section-header.companion .decklist-section-label {
+  color: #7c3aed;
+}
+
+/* ── Card image tooltip (decklist hover + hand hover) ── */
+.card-tooltip {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+#card-tooltip-img,
+#card-tooltip-back-img {
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  /* width set dynamically by JS */
+}
+
+/* ── Utility ── */
+.hidden { display: none !important; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  /* Stack decklists on narrower screens */
+  .decklists { flex-direction: column; }
+}
+
+@media (max-width: 700px) {
+  h1 { font-size: 1.7rem; }
+
+  .card { width: 120px; }
+  .card-placeholder { width: 120px; height: 168px; font-size: 0.72rem; }
+  .hand > * + * { margin-left: -30px; }
+
+  .btn { padding: 0.65rem 1.5rem; font-size: 0.9rem; }
+  .poll { padding: 1.25rem; }
+
+  .top-bar { justify-content: center; flex-direction: column; align-items: center; }
+  .deck-info { justify-content: center; }
+}
